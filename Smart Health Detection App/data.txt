@@ -1,0 +1,1 @@
+MONGODB_URI=mongodb:C:\Users\chall\OneDrive\Desktop\chaithu 2nd year\login\data.env.txt

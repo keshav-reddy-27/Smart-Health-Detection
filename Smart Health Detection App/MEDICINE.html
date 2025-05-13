@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #bill {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <center><h2>Medicine Order</h2></center>
+
+    <form id="orderForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" required>
+
+        <label for="mobile" width="100%" height="50px" margin="30px 0">Mobile Number:</label>
+        <input type="tel" id="mobile" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="medicine">Select Medicine:</label>
+        <select id="medicine" multiple required>
+            <option value="paracetamol-40.00">Paracetamol - ₹40.00</option>
+            <option value="ibuprofen-30.50">Ibuprofen - ₹30.50</option>
+            <option value="aspirin-20.00">Aspirin - ₹20.00</option>
+            <option value="cetirizine-20.00">Cetirizine - ₹20.00</option>
+            <option value="Livogen Strip Of 15 Captabs-71.14">Livogen Strip Of 15 Captabs - ₹71.14</option>
+            <option value="acetaminophen-150.90">acetaminophen(12pack) - ₹20.00</option>
+            <option value="Dolo-12.99">Dolo650 - ₹12.99</option>
+            <option value="Nano Iron-20.00"> Nano Iron + Folic Acid  - ₹20.00</option>
+            <option value="aspirin-20.00">Aspirin - ₹20.00</option>
+        </select>
+
+        <button type="button" onclick="generateBill()">Generate Bill</button>
+    </form>
+    
+
+    <div id="bill"></div>
+
+    <script>
+        function generateBill() {
+            const name = document.getElementById("name").value;
+            const address = document.getElementById("address").value;
+            const mobile = document.getElementById("mobile").value;
+            const email = document.getElementById("email").value; 
+            const selectedMedicines = document.getElementById("medicine");
+            const selectedMedicinesArray = Array.from(selectedMedicines.selectedOptions);
+            
+            let totalAmount = 0;
+            let billDetails = `<h2>Bill for ${name}</h2>`;
+            billDetails += `<p><strong>Address:</strong> ${address}</p>`;
+            billDetails += `<p><strong>Email:</strong> ${email}</p>`;
+            billDetails += `<p><strong>Mobile:</strong> ${mobile}</p>`;
+            billDetails += "<p><strong>Ordered Medicines:</strong></p>";
+            billDetails += "<ol>";
+
+            selectedMedicinesArray.forEach(option => {
+                const [medicineName, medicinePrice] = option.value.split("-");
+                totalAmount += parseFloat(medicinePrice);
+                billDetails += `<li>${medicineName} - ₹${parseFloat(medicinePrice).toFixed(2)}</li>`;
+            });
+
+            billDetails += "</ol>";
+            billDetails += `<p><strong>Total Amount:</strong> ₹${totalAmount.toFixed(2)}</p>`;
+            billDetails += `<p><strong>Above medicines will be delivered to:</strong> ${address}</p>`;
+            
+            
+
+            document.getElementById("bill").innerHTML = billDetails;
+        }
+    </script>
+
+</body>
+</html>
+
